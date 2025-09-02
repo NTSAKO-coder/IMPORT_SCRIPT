@@ -1,23 +1,19 @@
 import requests
 import psycopg2
 
-# TMDB API Key
 API_KEY = "1503eda96c4c8ce850cab95a9c7b3967"
 
 url = "https://api.themoviedb.org/3/movie/popular"
 params = {"api_key": API_KEY, "page": 1}
 
-# First request
 response = requests.get(url, params=params)
 response.raise_for_status()
 data = response.json()
 
-# Get total pages from response
 total_pages = min(data.get("total_pages", 1), 500)  
 
 print(f"Total pages available: {total_pages}")
 
-# PostgreSQL connection
 conn = psycopg2.connect(
     host="localhost",
     port="5432",
